@@ -1,0 +1,6 @@
+__pycache__
+venv
+notes
+*.swp
+tutorial
+*.db
