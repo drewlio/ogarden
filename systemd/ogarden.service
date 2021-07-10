@@ -1,0 +1,11 @@
+[Unit]
+Description=Ogarden Python Application
+Documentation=https://github.com/drewlio/ogarden
+After=network.target
+
+[Service]
+WorkingDirectory=/home/drew/ogarden
+ExecStart=bash -c "source venv/bin/activate && python mock.py"
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,10 @@
+[Unit]
+Description=Ogarden Python Application
+Documentation=https://github.com/drewlio/ogarden
+
+[Timer]
+OnCalendar=*:0
+Persistent=true
+
+[Install]
+WantedBy=timers.target
