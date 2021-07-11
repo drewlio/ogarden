@@ -3,8 +3,8 @@ Description=Ogarden Python Application
 Documentation=https://github.com/drewlio/ogarden
 
 [Timer]
-# Run the task every 12 hours starting at 0600
-OnCalendar=06:00/12
+# Run the task at these times
+OnCalendar=06:00,18:00
 Persistent=true
 
 [Install]
