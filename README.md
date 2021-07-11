@@ -110,22 +110,41 @@ The general process for configuring a Systemd service is as follows
 3. (Optionally) Provide Systemd a *timer file* which describes how to run the
 aforementioned service on a schedule.
 
-Ogarden has three parts in Systemd
+##### Systemd Controlls Three Parts of Ogarden
 1. The Python application
     - Unit file describing the Python application entrypoint (app.py).
     - Timer file describing how to run the Python applicaton service twice daily.
-
 2. Ensure sprinklers are off on boot-up
     - Unit file for a simple service that ensures the sprinkler valve is off.
     - Timer file that runs the previous ("sprinkler off") service on bootup.
-
 3. The Web UI
     - Unit file describing the web UI service.
 
-Below we will configure the first four Systemd files and leave the web UI
-configuration for the web UI installation section, below.
+Below we will configure the Systemd control of the Python application and
+service to ensure the sprinklers are off in the boot-up state. 
 
-##### Systemd Unit and Timer files for the Python Application
+Systemd configuration of the Web UI control is below in the Web UI section.
+
+##### Systemd Control of the Python Application
+The directory *ogarden/systemd/* contains unit files for the Ogarden service
+and time. The service unit file describes how to launch the Python application.
+The timer unit file describes the schedule for launching the service.
+
+The steps for this configuration are
+1. Edit the `WorkingDirectory` field in the *ogarden/systemd/ogarden.service*
+file to indicate the location of your ogarden installation. 
+2. Install the service unit file by creating a link with the command `ln -s
+/path/to/ogarden/systemd/ogarden.service /etc/systemd/system`
+3. Install the timer unit file by creating a link with the command `ln -s
+/path/to/ogarden/systemd/ogarden.timer /etc/systemd/system`
+4. Enable the timer with the command `systemctl enable ogarden.timer`.
+
+Note we do **not** enable the service *ogarden.service* because we don't want
+the Python application to run automatically upon boot. We only want the Python
+application to run according to the timer. 
+
+
+
 
 
 

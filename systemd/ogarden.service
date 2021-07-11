@@ -5,7 +5,10 @@ After=network.target
 
 [Service]
 WorkingDirectory=/home/drew/ogarden
-ExecStart=bash -c "source venv/bin/activate && python mock.py"
+ExecStart=bash -c "source venv/bin/activate && python app.py"
 
 [Install]
-WantedBy=multi-user.target
+# None specified. 
+# We will statically link this file to /etc/systemd/system so that the service
+# is not launched when the Raspberry Pi boots up. We only want the service to
+# start via the timer. 

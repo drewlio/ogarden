@@ -72,10 +72,10 @@ class IrrigationModel:
 
 # Example usage
 if __name__ == "__main__":
-    i = IrrigationModel(us_gallons=5,
-                        seconds=90,
+    i = IrrigationModel(us_gallons=40.3,
+                        seconds=60*60,
                         area_square_feet=70)
-    print(i.millimeters_to_seconds(2.1))
+    print(i.millimeters_to_seconds(6))
 
 
 

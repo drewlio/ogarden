@@ -33,7 +33,17 @@ weather = NationalWeatherService(latitude=39.2155,
                                  longitude=-76.8542, 
                                  user_agent="Drew's Garden awilso29@jhu.edu");
 sensor = SoilMoistureSensor(debug=15000)
-irrigation = IrrigationModel(us_gallons=5, seconds=90, area_square_feet=70)
+
+# My system filled 5 US gallons in 27.5 min from 18 emitters. This works out to
+# be 5gal/27.5min*(60min/hour)/18emitters=0.606 GPH per emitter. (The package
+# says they are 0.65 GPH, only 6.8% difference from what I measured.)
+#
+# My system has 62 emitters.
+# 5gal/27.5min/(60sec/min)/18emitters*62emitters*3.875L/gal = 0.0404L/sec
+#
+# Maybe I could just use the rate from the package:
+# (0.65gal/h)*62emitters=40.3gal/hour
+irrigation = IrrigationModel(us_gallons=40.3, seconds=60*60, area_square_feet=70)
 valve = Valve()
 log = Log('log.db')
 
@@ -45,9 +55,13 @@ duration = irrigation.millimeters_to_seconds(water) # determine how long to irri
 valve.timer(duration) # turn on the irrigation for a specified period of time
 
 
+results = {**conditions,
+           "water_amount": water,
+           "valve_duration": duration}
+
+pprint(results)
+
 # Log the results
-log.add({**conditions,
-         "water_amount": water,
-         "valve_duration": duration})
+log.add(results)
 
 

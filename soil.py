@@ -9,14 +9,14 @@ Returns
     - depth of water to apply uniformly to soil
 """
 
-DEBUG = False
+DEBUG = True
 
 from datetime import datetime
 
 SEASON_START_MONTH_DAY = (5, 11) # month and day of start of growing season (last frost)
 
 # Model parameters
-BASE_WATER_AMOUNT = 2.0   # daily watering before adjustments (mm)
+BASE_WATER_AMOUNT = 2.0   # session watering before adjustments (mm)
 PRECIPITATION_K = 1       # scaling factor for accounting for forecasted rainfall
 
 HUMIDITY_NOMINAL = 50     # nominal value which would require no correction (percent)
@@ -26,7 +26,7 @@ SKYCOVER_NOMINAL = 50     # nominal value which would require no correction (per
 SKYCOVER_K = 0.1          # scaling factor
 
 TEMPERATURE_NOMINAL = 20  # nominal value which would require no correction (C)
-TEMPERATURE_K = 0.2       # scaling factor
+TEMPERATURE_K = 0.3       # scaling factor
 
 WIND_NOMINAL = 7          # nominal value which would require no correction (km/h)
 WIND_K = 0.02             # scaling factor

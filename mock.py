@@ -1,4 +1,4 @@
-import time
+from time import sleep
 
 print("started mock.py")
 sleep(3)
