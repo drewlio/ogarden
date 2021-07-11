@@ -64,7 +64,7 @@ log = Log('log.db')
 conditions = {**weather.fetch(), **sensor.measure()} # get weather and soil conditions
 water = soil.calculate(**conditions) # determine how much watering is needed
 duration = irrigation.millimeters_to_seconds(water) # determine how long to irrigate
-#valve.timer(duration) # turn on the irrigation for a specified period of time
+valve.timer(duration) # turn on the irrigation for a specified period of time
 
 
 results = {**conditions,

@@ -26,10 +26,10 @@ SKYCOVER_NOMINAL = 50     # nominal value which would require no correction (per
 SKYCOVER_K = 0.1          # scaling factor
 
 TEMPERATURE_NOMINAL = 20  # nominal value which would require no correction (C)
-TEMPERATURE_K = 0.3       # scaling factor
+TEMPERATURE_K = 0.4       # scaling factor
 
 WIND_NOMINAL = 7          # nominal value which would require no correction (km/h)
-WIND_K = 0.02             # scaling factor
+WIND_K = 0.1              # scaling factor
 
 SENSOR_NOMINAL = 50       # nominal value which would require no correction (percent)
 SENSOR_K = 1.0            # scaling factor
