@@ -4,7 +4,7 @@ Documentation=https://github.com/drewlio/ogarden
 
 [Timer]
 # Run the task every 12 hours starting at 0600
-OnCalendar=6/12
+OnCalendar=06:00/12
 Persistent=true
 
 [Install]
