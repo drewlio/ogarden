@@ -58,20 +58,20 @@ class SoilMoistureSensor:
 
         try:
             # Read 2 bytes, starting at offset 0, from address
-            self.response = self.bus.read_i2c_block_data(self.address, 0, 2)
+            self.response = self.bus.read_i2c_block_data(self.address, 0, 4)
         except:
             if self.debug:
                 # If debug exists, we will pretend this came from the sensor
                 # and ignore any SMBus communication errors.
-                # Convert the debug value from int to array of 2 bytes.
-                self.response = self.debug.to_bytes(2, 'big', signed=False)
+                # Convert the debug value from int to array of 4 bytes.
+                self.response = list(int(self.debug).to_bytes(4, 'little'))
             else:
                 # If an error occured and we're not in debug mode, raise error
                 raise Exception("I2C sensor error")
 
 
-        # Shift high byte left 8 bits, add to low byte
-        self.raw = (self.response[0]<<8) + self.response[1]
+        # Convert the bytes in response to an int, little endian
+        self.raw = int.from_bytes(self.response, "little")
 
         self.calculate()
 
@@ -103,15 +103,23 @@ class SoilMoistureSensor:
     def __str__(self):
         """Output a summary when you print the sensor object"""
         return f"Address {hex(self.address)} ({self.address}) | " + \
-               f"Percent {self.percent}% | " + \
+               f"Response {self.response} | " + \
                f"Raw {self.raw} | " + \
+               f"Percent {self.percent}% | " + \
                f"Dry {self.dry} | " + \
                f"Wet {self.wet}" 
 
 
 if __name__ == "__main__":
-    sensor = SoilMoistureSensor(debug=15000)
-    sensor.measure()
-    print(sensor)
+    from time import sleep
+
+    # Debug parameter for testing when sensor is not available
+    sensor = SoilMoistureSensor(debug=15000) 
+    #sensor = SoilMoistureSensor()
+
+    while True:
+        sensor.measure()
+        print(sensor)
+        sleep(1)
 
 
