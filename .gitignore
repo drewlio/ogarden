@@ -4,3 +4,4 @@ notes
 *.swp
 tutorial
 *.db
+.env

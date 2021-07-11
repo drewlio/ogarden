@@ -15,6 +15,16 @@ of time.
 
 Watering is repeated on a schedule. Soil moisture readings are collected 
 continuously.
+
+Include a file in this directory called ".env" with values such as the
+following. (USER_AGENT with name and contact email is a requirement of the
+National Weather Service. LATITUDE and LONGITUDE are used when fetching local
+weather forecasts.)
+
+USER_AGENT="YourName YourEmail"
+LATITUDE=38.1234
+LONGITUDE=-77.1234
+
 """
 
 from weather import NationalWeatherService
@@ -26,12 +36,14 @@ from log import Log
 
 from pprint import pprint
 import json
+from dotenv import dotenv_values
 
+config = dotenv_values(".env")
 
 # Set up objects
-weather = NationalWeatherService(latitude=39.2155,
-                                 longitude=-76.8542, 
-                                 user_agent="Drew's Garden awilso29@jhu.edu");
+weather = NationalWeatherService(latitude=config['LATITUDE'],
+                                 longitude=config['LONGITUDE'], 
+                                 user_agent=config['USER_AGENT']);
 sensor = SoilMoistureSensor(debug=15000)
 
 # My system filled 5 US gallons in 27.5 min from 18 emitters. This works out to
@@ -52,7 +64,7 @@ log = Log('log.db')
 conditions = {**weather.fetch(), **sensor.measure()} # get weather and soil conditions
 water = soil.calculate(**conditions) # determine how much watering is needed
 duration = irrigation.millimeters_to_seconds(water) # determine how long to irrigate
-valve.timer(duration) # turn on the irrigation for a specified period of time
+#valve.timer(duration) # turn on the irrigation for a specified period of time
 
 
 results = {**conditions,
