@@ -24,7 +24,7 @@ export default function App() {
           <ChartCard log={log} />
           <hr />
           <h2>History</h2>
-          {log.map(l => <WeatherCard data={l} />)}
+          {log.reverse().map(l => <WeatherCard data={l} />)}
         </Container>
     </div>
   );
