@@ -14,15 +14,21 @@ sys.path.append(PROJECT_ROOT)
 # remaining imports now that we can reach our project modules
 from soil_moisture_sensor import SoilMoistureSensor
 from log import Log
+from valve import Valve
+
 
 # load .env configuration from project root
 config = dotenv_values(PROJECT_ROOT + "/.env")
 
 
-# define objects
+# define Flask server object
 app = Flask(__name__, static_folder="../build", static_url_path="/")
+
+
+# define Ogarden objects
 sensor = SoilMoistureSensor(debug=15000)
 log = Log(PROJECT_ROOT + "/" + config['LOG'])
+valve = Valve()
 
 
 # define routes (API endpoints)
@@ -52,7 +58,7 @@ def api_log():
     """Returns the log as a JSON object, limited by limit parameter
     (e.g. http://localhost/api/log?limit=50)
     """
-    num = int(request.args.get('limit') or 10)
+    num = int(request.args.get('limit') or 60)
 
     # the log returns a list of JSON objects, but must be a single JSON object 
     lst = log.tail(num)
@@ -65,3 +71,21 @@ def api_log():
         od[d['isodatetime']] = d
 
     return od 
+
+
+@app.route('/api/valve/on')
+def api_valve_on():
+    valve.on()
+    return {'isValveOn': True}
+
+
+@app.route('/api/valve/off')
+def api_valve_off():
+    valve.off()
+    return {'isValveOn': False}
+
+
+@app.route('/api/valve')
+def api_valve_status():
+    return {'isValveOn': True} if valve.status() else {'isValveOn': False}
+

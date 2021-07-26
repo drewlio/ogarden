@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
+import Container from 'react-bootstrap/Container';
 
-function App() {
+import Navigation from './components/Navigation.js';
+import ChartCard from './components/ChartCard.js';
+import WeatherCard from './components/WeatherCard.js';
+
+
+export default function App() {
+  const [log, setLog] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/log').then(res => res.json()).then(data => {
+      setLog(Object.values(data));
+    });
+  }, []);
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Navigation />
+        <Container>
+          <ChartCard log={log} />
+          <hr />
+          <h2>History</h2>
+          {log.map(l => <WeatherCard data={l} />)}
+        </Container>
     </div>
   );
 }
 
-export default App;

@@ -77,6 +77,12 @@ class Valve:
         self.on(duration=duration)        
 
 
+    def status(self):
+        """Returns On or Off state of the valve"""
+        return True if (self.relay1.value and self.relay2.value) else False
+
+
+
 if __name__ == "__main__":
     v = Valve(debug=True)
     v.on(duration=20*60)

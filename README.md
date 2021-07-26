@@ -110,18 +110,14 @@ The general process for configuring a Systemd service is as follows
 3. (Optionally) Provide Systemd a *timer file* which describes how to run the
 aforementioned service on a schedule.
 
-##### Systemd Controlls Three Parts of Ogarden
+##### Systemd Controls Two Parts of Ogarden
 1. The Python application
     - Unit file describing the Python application entrypoint (app.py).
     - Timer file describing how to run the Python applicaton service twice daily.
-2. Ensure sprinklers are off on boot-up
-    - Unit file for a simple service that ensures the sprinkler valve is off.
-    - Timer file that runs the previous ("sprinkler off") service on bootup.
-3. The Web UI
+2. The Web UI
     - Unit file describing the web UI service.
 
-Below we will configure the Systemd control of the Python application and
-service to ensure the sprinklers are off in the boot-up state. 
+Below we will configure the Systemd control of the Python application.
 
 Systemd configuration of the Web UI control is below in the Web UI section.
 

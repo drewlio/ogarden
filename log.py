@@ -46,10 +46,19 @@ class Log:
                 print(f"removed {r['isodatetime']}")
 
 
+    def tail(self, n=1000):
+        """Return the last n log entries
+        """
+        # sort in forward order (newest first)
+        sorted_records = sorted(self.db.all(),
+                                key=lambda k: k['isodatetime'])
+        return sorted_records[-n::]
+
+
 if __name__ == "__main__":
     from pprint import pprint
 
-    log = Log("log_test_file.json")
-    log.add({"testobject": True})
+    log = Log("log.db")
+    #log.add({"testobject": True})
     pprint(log.db.all())
 
