@@ -139,8 +139,20 @@ Note we do **not** enable the service *ogarden.service* because we don't want
 the Python application to run automatically upon boot. We only want the Python
 application to run according to the timer. 
 
+### Web Interface Installation
+#### Install Yarn
+follow directions from Yarn
+https://classic.yarnpkg.com/en/docs/install/#debian-stable
+which are to add the repository and then install with apt
 
+commands:
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt update && sudo apt install yarn
+yarn --version
 
+yarn install (5+ minutes)
+yarn build (5 minutes)
 
 
 
